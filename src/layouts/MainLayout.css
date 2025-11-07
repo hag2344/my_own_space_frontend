@@ -1,0 +1,78 @@
+/* === 레이아웃 그리드 배치 === */
+.MainLayout {
+  display: grid;
+  grid-template-columns: 256px 1fr; /* 왼쪽 aside, 오른쪽 나머지 */
+  grid-template-rows: var(--h-h) 1fr; /* 위 header, 아래 main */
+  grid-template-areas: "aside header" "aside main";
+  height: 100vh;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+/* 영역 고정 */
+.MainLayout .Aside {
+  grid-area: aside;
+}
+.MainLayout .Header {
+  grid-area: header;
+}
+.MainLayout .Main {
+  grid-area: main;
+}
+
+/* 메인 영역 기본 */
+.Main {
+  background-color: #fff;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+/* 오버레이 기본: 숨김 */
+.overlay {
+  display: none;
+}
+
+/* === 반응형: 모바일(<=768px)에서 사이드 숨기고 버튼/오버레이 활성화 === */
+@media (max-width: 768px) {
+  .MainLayout {
+    grid-template-columns: 1fr; /* aisde를 그리드에서 제거 */
+    grid-template-rows: var(--h-h) 1fr;
+    grid-template-areas: "header" "main";
+  }
+
+  /* 토글 버튼 보이기 */
+  .Button_Toggle {
+    display: block !important;
+  }
+
+  /* aside를 고정 패널로 전환(기본 숨김) */
+  .MainLayout .Aside {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: var(--h-s);
+    min-width: var(--h-s);
+    height: 100dvh;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    z-index: 1200;
+    box-shadow: 2px 0 14px rgba(0, 0, 0, 0.12);
+  }
+
+  .MainLayout.open .Aside {
+    transform: translateX(0);
+  }
+
+  .overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.32);
+    backdrop-filter: blur(2px);
+    z-index: 1150;
+    display: none; /* 기본은 숨김 */
+  }
+
+  .MainLayout.open .overlay {
+    display: block;
+  }
+}

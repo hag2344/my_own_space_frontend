@@ -1,0 +1,37 @@
+:root {
+  --h-idx: 1100px;
+  --h-pem: 720px;
+  --h-s: 215px;
+  --h-c: calc(100% - var(--h-s));
+  --h-h: 135px;
+}
+
+@font-face {
+  /*이제부터는 CSS파일 안에서 폰트 파일을 불러와서 사용 가능 */
+  /*css에서 폰트를 불러오려면 @font-face 설정*/
+  font-family: "IsYun"; /*폰트의 이름을 원하는 이름으로 설정 */
+  src: url("/IsYun.ttf") format("truetype"); /*폰트 파일의 위치를 명시 public 폴더 아래를 가리키려면 /적으면 됨*/
+  font-weight: normal;
+  font-display: swap;
+}
+
+body {
+  margin: 0;
+  width: 100%;
+  background-color: white;
+  display: flex;
+}
+
+body {
+  font-family: "IsYun";
+}
+
+#root {
+  /*root 아이디를 가진 태그 밑 즉 컴포넌트 불러오는 태그 아래 */
+  background-color: white;
+  width: 100%;
+  margin: 0 auto;
+  min-height: 100vh; /* 최소 높이 설정 vh(Viewport Heigth) : 현재 브라우저의 스크린 높이 100vh는 브라우저 창 높이 꽉 채우기*/
+  height: 100%;
+  padding: 0;
+}

@@ -1,0 +1,33 @@
+.Button {
+  background-color: rgb(236, 236, 236);
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 20px;
+  font-size: 18px;
+  white-space: nowrap;
+}
+
+.Button_New {
+  background-color: black;
+  color: white;
+}
+
+/* === 토글 버튼: 기본 숨김(데스크탑) */
+.Button_Toggle {
+  position: fixed;
+  padding: 0;
+  top: 16px;
+  left: 16px;
+  width: 35px;
+  height: 35px;
+  border: none;
+  border-radius: 50%;
+  background: #333;
+  color: #fff;
+  font-size: 1.1rem;
+  text-align: center;
+  cursor: pointer;
+  z-index: 1100;
+  display: none;
+}

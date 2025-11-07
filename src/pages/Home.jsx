@@ -1,5 +1,5 @@
-import Button from "../components/common/button";
-import Header from "../components/common/header";
+import Button from "../components/common/Button";
+import Header from "../components/common/Header";
 import Aside from "../components/common/Aside";
 
 const Home = () => {

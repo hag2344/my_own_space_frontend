@@ -1,9 +1,9 @@
-import Header from "../components/common/header";
+import Header from "../components/common/Header";
 import Aside from "../components/common/Aside";
 import { Outlet, useLocation } from "react-router-dom";
 import "./MainLayout.css";
 import { useState, useEffect, useCallback } from "react";
-import Button from "../components/common/button";
+import Button from "../components/common/Button";
 import "../index.css";
 import { routeMeta } from "../config/menuConfig";
 

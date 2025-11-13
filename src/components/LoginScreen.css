@@ -9,7 +9,6 @@
 .LoginScreen {
   display: grid;
   grid-template-columns: 1fr 1fr;
-
   border-radius: 5px;
   width: 60%;
   min-width: 500px;
@@ -57,4 +56,13 @@
 
 .LoginScreen .right_section a:hover img {
   filter: brightness(0.96);
+}
+
+/* === 반응형: 모바일(<=768px) === */
+@media (max-width: 768px) {
+  .LoginScreen {
+    display: flex;
+    flex-direction: column;
+    min-width: 300px;
+  }
 }

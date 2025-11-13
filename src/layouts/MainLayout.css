@@ -32,6 +32,18 @@
   display: none;
 }
 
+/* === 페이지 전환 시 부드러운 페이드인 효과 === */
+.MainLayout {
+  opacity: 0;
+  transform: translateY(5px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.MainLayout.fade-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 /* === 반응형: 모바일(<=768px)에서 사이드 숨기고 버튼/오버레이 활성화 === */
 @media (max-width: 768px) {
   .MainLayout {

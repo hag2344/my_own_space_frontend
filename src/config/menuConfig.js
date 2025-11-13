@@ -1,8 +1,8 @@
 export const menuMetaData = {
   home: {
     path: "/",
-    menuTitle: "홈",
-    title: "나만의 공간",
+    webTitle: "나만의 공간",
+    title: "홈",
     subTitle: "my own space",
   },
   schedule: {
@@ -36,7 +36,7 @@ function headerText(metaData) {
   const headerData = [
     {
       path: metaData.home.path,
-      title: metaData.home.title,
+      title: metaData.home.webTitle,
       subTitle: metaData.home.subTitle,
     },
     {

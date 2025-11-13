@@ -4,27 +4,37 @@ import MainLayout from "./layouts/MainLayout";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
+import KakaoCallback from "./pages/KakaoCallback";
+import ProtectedRoute from "./ProtectedRoute";
 
-import { ScheduleRoutes } from "./routes/ScheduleRoutes";
-import { DiaryRoutes } from "./routes/DiaryRoutes";
-import { MyMemoryRoutes } from "./routes/MyMemoryRoutes";
-import { BookReportRoutes } from "./routes/BookReportRoutes";
-import { MyMovieListRoutes } from "./routes/MyMovieListRoutes";
+import {
+  ScheduleRoutes,
+  DiaryRoutes,
+  MyMemoryRoutes,
+  BookReportRoutes,
+  MyMovieListRoutes,
+} from "./routes";
 
 function App() {
   return (
     <>
       <Routes>
-        <Route element={<MainLayout />}>
-          <Route path="/" element={<Home />} />
-          {ScheduleRoutes}
-          {DiaryRoutes}
-          {MyMemoryRoutes}
-          {BookReportRoutes}
-          {MyMovieListRoutes}
+        {/* 로그인 & 콜백카카오는 보호되지 않음 */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/oauth/kakao" element={<KakaoCallback />} />
+
+        {/* 로그인한 사용자만 접근 가능 */}
+        <Route element={<ProtectedRoute />}>
+          <Route element={<MainLayout />}>
+            <Route path="/" element={<Home />} />
+            {ScheduleRoutes}
+            {DiaryRoutes}
+            {MyMemoryRoutes}
+            {BookReportRoutes}
+            {MyMovieListRoutes}
+          </Route>
         </Route>
 
-        <Route path="/login" element={<Login />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>

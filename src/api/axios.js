@@ -21,8 +21,11 @@ api.interceptors.response.use(
       return Promise.reject(error);
     }
 
-    // refresh API 자체는 재시도하지 않음
-    if (original?.url?.includes("/auth/refresh")) {
+    // /auth/refresh 실패도 retry 금지
+    if (
+      original?.url?.includes("/auth/refresh") ||
+      original?.url?.includes("/auth/check")
+    ) {
       return Promise.reject(error);
     }
 

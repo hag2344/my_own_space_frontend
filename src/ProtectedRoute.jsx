@@ -18,7 +18,7 @@ const ProtectedRoute = () => {
     checkAuth();
   }, []);
 
-  if (auth === null) return <div>인증 확인 중...</div>;
+  if (auth === null) return null;
   if (!auth) return <Navigate to="/login" replace />; // 인증 실패 시 로그인페이지로
   return <Outlet />; // 인증 성공 시 페이지로
 };

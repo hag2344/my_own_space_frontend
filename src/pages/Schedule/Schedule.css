@@ -1,0 +1,7 @@
+.schedule-wrapper {
+  padding: 20px;
+}
+
+.fc-daygrid-day {
+  cursor: pointer !important;
+}

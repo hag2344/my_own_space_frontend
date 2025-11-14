@@ -1,11 +1,27 @@
 import { Link } from "react-router-dom";
 import "./LoginScreen.css";
+import api from "../api/axios";
+import { useEffect, useState } from "react";
 
 const LoginScreen = () => {
   const REST_API_KEY = import.meta.env.VITE_KAKAO_REST_API_KEY;
   const REDIRECT_URI = import.meta.env.VITE_KAKAO_REDIRECT_URI;
 
   const kakaoAuthUrl = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+
+  const [serverState, setServerState] = useState("OFF");
+
+  useEffect(() => {
+    const fetchServerState = async () => {
+      try {
+        const res = await api.get("/auth/server/state");
+        setServerState(res.data); // ON
+      } catch (err) {
+        console.error("서버 상태 정보 불러오기 실패:", err);
+      }
+    };
+    fetchServerState();
+  }, []);
 
   return (
     <div className="LoginWrapper">
@@ -20,6 +36,13 @@ const LoginScreen = () => {
             <img src="/kakao_login_medium_wide.png" alt="카카오 로그인" />
           </a>
         </section>
+      </div>
+      <div className="server_on_off">
+        <div>
+          - 서버 <span className={`server_${serverState}`}>{serverState}</span>{" "}
+          -
+        </div>
+        <div>※ 로그인 실패 시 1분 후 다시시도 해주세요.</div>
       </div>
     </div>
   );

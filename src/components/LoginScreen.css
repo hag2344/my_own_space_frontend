@@ -66,3 +66,19 @@
     min-width: 300px;
   }
 }
+
+.server_on_off {
+  margin-top: 14px;
+  text-align: center;
+  line-height: 20px;
+}
+
+.server_on_off .server_OFF {
+  color: red;
+  font-weight: bold;
+}
+
+.server_on_off .server_ON {
+  color: blue;
+  font-weight: bold;
+}

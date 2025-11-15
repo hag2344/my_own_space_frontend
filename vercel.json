@@ -1,6 +1,10 @@
 {
   "rewrites": [
     {
+      "source": "/api/keep-alive-vercel",
+      "destination": "/api/keep-alive-vercel"
+    },
+    {
       "source": "/api/(.*)",
       "destination": "https://my-own-space-backend.onrender.com/api/$1"
     },

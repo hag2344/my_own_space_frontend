@@ -1,15 +1,26 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import api from "../../api/axios";
 import "./ScheduleModal.css";
 
-const ScheduleModal = ({ event, onClose, onRefresh }) => {
-  const [title, setTitle] = useState(event.title || "");
-  const [startDate, setStartDate] = useState(event.start || "");
-  const [endDate, setEndDate] = useState(event.end || "");
-  const [color, setColor] = useState(event.color || "#3788d8");
-  const [description, setDescription] = useState(event.description || "");
+const ScheduleModal = ({ event = {}, onClose, onRefresh }) => {
+  const [title, setTitle] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [color, setColor] = useState("#3788d8");
+  const [location, setLocation] = useState("");
+  const [description, setDescription] = useState("");
 
-  // 📌 저장
+  // event가 바뀔 때 모달 값 다시 채우기
+  useEffect(() => {
+    setTitle(event.title || "");
+    setStartDate(event.start || "");
+    setEndDate(event.end || "");
+    setColor(event.color || "#3788d8");
+    setLocation(event.location || "");
+    setDescription(event.description || "");
+  }, [event]);
+
+  // 저장
   const handleSave = async () => {
     try {
       const data = {
@@ -17,8 +28,10 @@ const ScheduleModal = ({ event, onClose, onRefresh }) => {
         startDate,
         endDate,
         color,
+        location,
         description,
       };
+      console.log("전송 데이터 :", data);
 
       if (event.id) {
         await api.put(`/schedule/${event.id}`, data);
@@ -33,7 +46,7 @@ const ScheduleModal = ({ event, onClose, onRefresh }) => {
     }
   };
 
-  // 📌 삭제
+  // 삭제
   const handleDelete = async () => {
     if (!event.id) return;
 
@@ -54,7 +67,11 @@ const ScheduleModal = ({ event, onClose, onRefresh }) => {
         <h2>{event.id ? "일정 수정" : "새 일정 추가"}</h2>
 
         <label>제목</label>
-        <input value={title} onChange={(e) => setTitle(e.target.value)} />
+        <input
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          maxLength={100}
+        />
 
         <label>시작일</label>
         <input
@@ -70,6 +87,13 @@ const ScheduleModal = ({ event, onClose, onRefresh }) => {
           onChange={(e) => setEndDate(e.target.value)}
         />
 
+        <label>장소</label>
+        <input
+          value={location}
+          onChange={(e) => setLocation(e.target.value)}
+          maxLength={100}
+        />
+
         <label>색상</label>
         <input
           type="color"
@@ -77,7 +101,7 @@ const ScheduleModal = ({ event, onClose, onRefresh }) => {
           onChange={(e) => setColor(e.target.value)}
         />
 
-        <label>설명</label>
+        <label>메모</label>
         <textarea
           rows="3"
           value={description}

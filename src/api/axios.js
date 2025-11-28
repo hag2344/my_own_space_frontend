@@ -4,7 +4,7 @@ const api = axios.create({
   baseURL: "/api", // 자동 프록시 덕분에 로컬/배포 모두 동작
   withCredentials: true, // 쿠키 자동 전송 (JWT 쿠키 인증용)
   headers: { "Content-Type": "application/json" },
-  timeout: 3000,
+  timeout: 7000,
 });
 
 let isRefreshing = false;
@@ -17,11 +17,12 @@ api.interceptors.response.use(
     const original = error.config;
     const status = error.response?.status;
 
+    // 원본 요청이 없거나 이미 재시도된 경우 중단
     if (!original || original._retry) {
       return Promise.reject(error);
     }
 
-    // /auth/refresh 실패도 retry 금지
+    // refresh 또는 check 요청 자체가 실패한 경우 중단
     if (
       original?.url?.includes("/auth/refresh") ||
       original?.url?.includes("/auth/check")
@@ -29,16 +30,22 @@ api.interceptors.response.use(
       return Promise.reject(error);
     }
 
-    // === 401/403 → Access Token 만료 가능 ===
+    // Access Token 만료 케이스
     if (status === 401 || status === 403) {
       original._retry = true;
 
-      // === refresh가 이미 진행 중이면 그 결과 기다림 ===
+      // 이미 refresh 진행 중이면 기존 refreshPromise 기다리기
       if (isRefreshing) {
-        return refreshPromise.then(() => api(original));
+        try {
+          await refreshPromise;
+          // 원래 요청 재실행
+          return api({ ...original });
+        } catch (err) {
+          return Promise.reject(err);
+        }
       }
 
-      // === refresh 최초 실행 ===
+      // refresh 최초 실행
       isRefreshing = true;
       refreshPromise = api
         .get("/auth/refresh")
@@ -56,8 +63,12 @@ api.interceptors.response.use(
           isRefreshing = false;
         });
 
-      await refreshPromise;
-      return api(original); // 원래 요청 재실행
+      try {
+        await refreshPromise;
+        return api({ ...original });
+      } catch (err) {
+        return Promise.reject(err);
+      }
     }
 
     return Promise.reject(error);

@@ -11,7 +11,11 @@ const Aside = ({ onNavigate }) => {
     const fetchUser = async () => {
       try {
         const res = await api.get("/user/me");
-        setUser(res.data); // nickname, profileImage, provider
+        if (!res.data.success) {
+          console.error(res.data.message);
+          return;
+        }
+        setUser(res.data.data); // nickname, profileImage, provider
       } catch (err) {
         console.error("사용자 정보 불러오기 실패:", err);
       }
@@ -21,9 +25,12 @@ const Aside = ({ onNavigate }) => {
 
   const handleLogout = async () => {
     try {
-      await api.post("/auth/logout");
-      alert("로그아웃 되었습니다.");
-      window.location.href = "/login"; // 로그인 페이지로 이동
+      const res = await api.post("/auth/logout");
+      if (res.data?.success) {
+        alert("로그아웃 되었습니다.");
+        // 로그인 페이지로 이동
+        window.location.href = "/login";
+      }
     } catch (err) {
       console.error("Logout failed:", err);
     }

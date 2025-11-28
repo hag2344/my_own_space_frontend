@@ -1,0 +1,25 @@
+.schedule-detail-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.detail-content {
+  width: 380px;
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+}
+
+@media (max-width: 768px) {
+  .detail-content {
+    width: 90%;
+    height: auto;
+    margin: 0 5%;
+    font-size: 14px;
+  }
+}

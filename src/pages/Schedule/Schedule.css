@@ -1,3 +1,54 @@
 .schedule-wrapper {
   padding: 20px;
+  margin: 0 auto;
+  max-width: 900px;
+}
+
+/* 데스크탑 기본 */
+.fc {
+  font-size: 14px;
+}
+
+/* 일요일 날짜 색상 */
+.fc-sun .fc-daygrid-day-number {
+  color: #d60000 !important; /* 빨간색 */
+}
+
+/* 토요일 날짜 색상 */
+.fc-sat .fc-daygrid-day-number {
+  color: #0050c8 !important; /* 파란색 */
+}
+
+/* 날짜 선택됐을 때 표시 (구글 캘린더 스타일) */
+.fc-selected-day .fc-daygrid-day-frame {
+  box-shadow: 0 0 0 2px #b5927f inset;
+  background: #ebcdc3 !important;
+}
+
+/* 모바일 대응 */
+@media (max-width: 768px) {
+  .schedule-wrapper {
+    padding: 10px;
+  }
+
+  .fc {
+    font-size: 12px;
+  }
+
+  .fc-toolbar {
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .fc-toolbar-title {
+    font-size: 18px;
+  }
+
+  .fc-col-header-cell {
+    font-size: 12px;
+  }
+
+  .fc-daygrid-day-number {
+    font-size: 12px;
+  }
 }

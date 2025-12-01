@@ -1,25 +1,101 @@
+/* 모달 전체 배경 */
 .schedule-detail-modal {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.45);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
+  z-index: 5000;
 }
 
+/* 모달 박스 */
 .detail-content {
-  width: 380px;
-  background: white;
-  padding: 20px;
+  background: #fff;
+  width: 420px;
+  padding: 10px 25px 18px;
   border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  position: relative;
+  animation: fadeIn 0.2s ease;
 }
 
-@media (max-width: 768px) {
-  .detail-content {
-    width: 90%;
-    height: auto;
-    margin: 0 5%;
-    font-size: 14px;
+/* 헤더 영역 */
+.detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #696969;
+}
+
+/* 제목 */
+.detail-header h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* X 버튼 */
+.close-icon {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 5px;
+  color: #444;
+  transition: 0.2s ease;
+}
+
+.close-icon:hover {
+  color: #000;
+  transform: scale(1.1);
+}
+
+/* 상세 아이템 */
+.detail-item {
+  margin-bottom: 12px;
+}
+
+.detail-item strong {
+  display: block;
+  margin-bottom: 5px;
+  color: #333;
+  font-size: 14px;
+}
+
+.detail-item span,
+.detail-item p {
+  font-size: 14px;
+  color: #555;
+  margin: 0;
+}
+
+/* 버튼 영역 */
+.detail-actions {
+  display: flex;
+  justify-content: end;
+  margin-top: 20px;
+  gap: 6px;
+}
+
+.detail-actions button {
+  padding: 6px 14px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* 모달 Fade-in */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

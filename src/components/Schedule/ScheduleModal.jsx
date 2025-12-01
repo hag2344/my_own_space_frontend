@@ -1,13 +1,17 @@
 import { useState, useEffect } from "react";
 import { scheduleApi } from "../../api/scheduleApi";
 import "./ScheduleModal.css";
+import { colors } from "../../utils/colorList";
+import { toDateOnly, toDateTime, toggleAllDay } from "../../utils/dateFormat";
+import Button from "../common/Button";
+import { mapFormToApi } from "../../utils/scheduleMapper";
 
 const ScheduleModal = ({ event = {}, onClose, onRefresh }) => {
   const [form, setForm] = useState({
     title: "",
     startDate: "",
     endDate: "",
-    allDay: true,
+    allDay: false,
     color: "#3788d8",
     location: "",
     description: "",
@@ -15,19 +19,31 @@ const ScheduleModal = ({ event = {}, onClose, onRefresh }) => {
 
   // event가 바뀔 때 모달 값 다시 채우기
   useEffect(() => {
+    let start = event.start || "";
+    let end = event.end || event.start || "";
+    if (!event.id && start) {
+      start = toDateTime(start, "08:00");
+      end = toDateTime(end, "09:00");
+    }
     setForm({
       title: event.title || "",
-      startDate: event.start || "",
-      endDate: event.end || event.start || "",
+      startDate: start,
+      endDate: end,
       color: event.color || "#3788d8",
       location: event.location || "",
       description: event.description || "",
-      allDay: event.allDay ?? true,
+      allDay: event.allDay ?? false,
     });
   }, [event]);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
+
+    // 하루 종일 체크박스 전용 처리
+    if (name === "allDay") {
+      setForm((prev) => toggleAllDay(prev, checked));
+      return;
+    }
 
     setForm((prev) => ({
       ...prev,
@@ -52,7 +68,7 @@ const ScheduleModal = ({ event = {}, onClose, onRefresh }) => {
       return;
     }
 
-    const data = { ...form };
+    const data = mapFormToApi({ ...form });
 
     try {
       if (event.id) {
@@ -88,16 +104,19 @@ const ScheduleModal = ({ event = {}, onClose, onRefresh }) => {
           onChange={handleChange}
           maxLength={100}
         />
-
-        <label>
+        <div className="checkbox-row">
+          <label htmlFor="allDay" className="checkbox-label">
+            하루 종일
+          </label>
           <input
+            id="allDay"
             type="checkbox"
             name="allDay"
+            className="checkbox-input"
             checked={form.allDay}
             onChange={handleChange}
           />
-          하루종일
-        </label>
+        </div>
 
         <label>시작</label>
         <input
@@ -124,12 +143,16 @@ const ScheduleModal = ({ event = {}, onClose, onRefresh }) => {
         />
 
         <label>색상</label>
-        <input
-          type="color"
-          name="color"
-          value={form.color}
-          onChange={handleChange}
-        />
+        <div className="color-picker">
+          {colors.map((c) => (
+            <div
+              key={c}
+              className={`color-box ${form.color === c ? "selected" : ""}`}
+              style={{ backgroundColor: c }}
+              onClick={() => setForm({ ...form, color: c })}
+            />
+          ))}
+        </div>
 
         <label>메모</label>
         <textarea
@@ -140,11 +163,9 @@ const ScheduleModal = ({ event = {}, onClose, onRefresh }) => {
         />
 
         <div className="actions">
-          <button onClick={handleSave}>저장</button>
+          <Button text={"저장"} onClick={handleSave} type={"New"} />
 
-          <button className="close" onClick={onClose}>
-            닫기
-          </button>
+          <Button text={"닫기"} onClick={onClose} type={"Basic"} />
         </div>
       </div>
     </div>

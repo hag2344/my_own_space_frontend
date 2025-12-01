@@ -16,6 +16,7 @@
   background: white;
   padding: 20px;
   border-radius: 12px;
+  animation: fadeIn 0.2s ease;
 }
 
 .schedule-modal-content label {
@@ -29,6 +30,11 @@
   width: 100%;
   padding: 7px;
   margin-top: 4px;
+  box-sizing: border-box;
+}
+
+.schedule-modal-content textarea {
+  resize: vertical;
 }
 
 .actions {
@@ -37,7 +43,62 @@
   margin-top: 15px;
 }
 
-button.close {
-  background: #aaa;
-  color: white;
+.color-picker {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.color-box {
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 2px solid #ddd;
+}
+
+.color-box:hover {
+  border-color: black;
+}
+
+.color-box.selected {
+  border-color: black;
+}
+
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+/* label 기본 block 규칙을 덮어씀 */
+.checkbox-label {
+  display: inline !important;
+  margin-top: 0 !important;
+  white-space: nowrap;
+}
+
+.checkbox-input {
+  transform: scale(1.2); /* 살짝 키우기 */
+  cursor: pointer;
+  margin: 0;
+  width: 40px !important;
+}
+
+/* 버튼 영역 */
+.actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  gap: 6px;
+}
+
+.actions button {
+  padding: 6px 14px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
 }

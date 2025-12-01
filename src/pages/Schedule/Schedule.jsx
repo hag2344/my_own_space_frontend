@@ -11,6 +11,7 @@ import ScheduleDetailModal from "../../components/Schedule/ScheduleDetailModal";
 import {
   mapApiToCalendarEvent,
   mapCalendarEventToApi,
+  mapCalendarEventToForm,
 } from "../../utils/scheduleMapper";
 import "./Schedule.css";
 
@@ -77,17 +78,17 @@ const Schedule = () => {
       document.querySelectorAll(".fc-popover")?.forEach((el) => el.remove());
     });
 
-    const ev = info.event;
+    const ev = mapCalendarEventToForm(info.event);
 
     setSelectedEvent({
       id: ev.id,
       title: ev.title,
-      start: ev.startStr, // allDay면 "YYYY-MM-DD", 아니면 "YYYY-MM-DDTHH:mm:ss"
-      end: ev.endStr || ev.startStr,
+      start: ev.startDate, // allDay면 "YYYY-MM-DD", 아니면 "YYYY-MM-DDTHH:mm:ss"
+      end: ev.endDate || ev.startDate,
       allDay: ev.allDay,
-      color: ev.backgroundColor,
-      location: ev.extendedProps?.location || "",
-      description: ev.extendedProps?.description || "",
+      color: ev.color,
+      location: ev.location,
+      description: ev.description,
     });
 
     setModalMode("detail");

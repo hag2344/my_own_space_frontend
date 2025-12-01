@@ -13,6 +13,28 @@
   color: white;
 }
 
+.Button_New:hover {
+  background: #464646;
+}
+
+.Button_Del {
+  background-color: #dc143c;
+  color: white;
+}
+
+.Button_Del:hover {
+  background: #b90000;
+}
+
+.Button_Basic {
+  background-color: #b3b3b3;
+  color: white;
+}
+
+.Button_Basic:hover {
+  background: #9e9e9e;
+}
+
 /* === 토글 버튼: 기본 숨김(데스크탑) */
 .Button_Toggle {
   position: fixed;

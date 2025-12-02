@@ -2,7 +2,11 @@ import { useState, useEffect } from "react";
 import { scheduleApi } from "../../api/scheduleApi";
 import "./ScheduleModal.css";
 import { colors } from "../../utils/colorList";
-import { toDateOnly, toDateTime, toggleAllDay } from "../../utils/dateFormat";
+import {
+  toDateTime,
+  toggleAllDay,
+  adjustDateRange,
+} from "../../utils/dateFormat";
 import Button from "../common/Button";
 import { mapFormToApi } from "../../utils/scheduleMapper";
 
@@ -19,12 +23,17 @@ const ScheduleModal = ({ event = {}, onClose, onRefresh }) => {
 
   // event가 바뀔 때 모달 값 다시 채우기
   useEffect(() => {
+    if (!event) return;
+
     let start = event.start || "";
     let end = event.end || event.start || "";
+
+    // 신규 일정(default 시간 적용)
     if (!event.id && start) {
       start = toDateTime(start, "08:00");
       end = toDateTime(end, "09:00");
     }
+
     setForm({
       title: event.title || "",
       startDate: start,
@@ -42,6 +51,28 @@ const ScheduleModal = ({ event = {}, onClose, onRefresh }) => {
     // 하루 종일 체크박스 전용 처리
     if (name === "allDay") {
       setForm((prev) => toggleAllDay(prev, checked));
+      return;
+    }
+
+    // 날짜 변경 로직
+    if (name === "startDate" || name === "endDate") {
+      setForm((prev) => {
+        const newStart = name === "startDate" ? value : prev.startDate;
+        const newEnd = name === "endDate" ? value : prev.endDate;
+
+        const { newStart: fixedStart, newEnd: fixedEnd } = adjustDateRange(
+          name,
+          newStart,
+          newEnd,
+          prev.allDay
+        );
+
+        return {
+          ...prev,
+          startDate: fixedStart,
+          endDate: fixedEnd,
+        };
+      });
       return;
     }
 

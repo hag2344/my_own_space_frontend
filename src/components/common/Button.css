@@ -50,6 +50,6 @@
   font-size: 1.1rem;
   text-align: center;
   cursor: pointer;
-  z-index: 1100;
+  z-index: 500;
   display: none;
 }

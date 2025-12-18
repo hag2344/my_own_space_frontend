@@ -35,3 +35,9 @@
 .search-bar-wrapper button {
   font-size: 14px;
 }
+
+@media (max-width: 768px) {
+  .search-bar-wrapper button {
+    font-size: 13px;
+  }
+}

@@ -12,7 +12,7 @@ import {
   mapApiToCalendarEvent,
   mapCalendarEventToApi,
   mapCalendarEventToForm,
-} from "../../utils/scheduleMapper";
+} from "../../mappers/scheduleMapper";
 import "./Schedule.css";
 
 const Schedule = () => {

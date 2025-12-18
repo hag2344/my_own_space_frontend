@@ -63,7 +63,7 @@ const MainLayout = () => {
         }}
       />
       <Header title={title} subTitle={subTitle} />
-      <main className="Main">
+      <main className="Main" id="main-scroll">
         <Outlet />
       </main>
 

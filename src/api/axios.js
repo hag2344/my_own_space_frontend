@@ -23,10 +23,7 @@ api.interceptors.response.use(
     }
 
     // refresh 또는 check 요청 자체가 실패한 경우 중단
-    if (
-      original?.url?.includes("/auth/refresh") ||
-      original?.url?.includes("/auth/check")
-    ) {
+    if (original?.url?.includes("/auth/refresh")) {
       return Promise.reject(error);
     }
 

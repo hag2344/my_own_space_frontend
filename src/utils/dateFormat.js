@@ -76,3 +76,36 @@ export const adjustDateRange = (name, start, end, allDay) => {
 
   return { newStart: start, newEnd: end };
 };
+
+/* 오늘 날짜 포맷 함수 만들기 */
+export const getToday = () => {
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, "0");
+  const day = String(today.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+};
+
+export const formatKoreanDate = (dateStr) => {
+  const date = new Date(dateStr);
+
+  const parts = new Intl.DateTimeFormat("ko-KR", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    weekday: "long",
+  }).formatToParts(date);
+
+  const get = (type) => parts.find((p) => p.type === type)?.value;
+
+  return `${get("year")}년 ${get("month")}월 ${get("day")}일 ${get("weekday")}`;
+};
+
+export const formatKoreanTime = (timeStr) => {
+  const [hour, minute] = timeStr.split(":");
+
+  return `${String(hour).padStart(2, "0")}시 ${String(minute).padStart(
+    2,
+    "0"
+  )}분`;
+};

@@ -1,0 +1,14 @@
+.diary-item-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+  max-width: calc(5 * 180px + 4 * 20px);
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .pagination {
+    display: none; /* 모바일에서는 숨김 */
+  }
+}

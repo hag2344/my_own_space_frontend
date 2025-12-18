@@ -1,0 +1,48 @@
+.diary-item-card {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  background-color: #fff;
+  transition: transform 0.2s;
+}
+
+.diary-item-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}
+
+.diary-item-card img {
+  width: 100%;
+  object-fit: cover;
+  background-color: #faebd7;
+}
+
+.diary-item-card .diary-item-card-wrapper {
+  padding: 10px;
+}
+
+.diary-item-card-wrapper h3 {
+  font-size: 16px;
+  margin: 5px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.diary-item-card-wrapper .diary-item-card-content {
+  font-size: 14px;
+  color: #777;
+  height: 50px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1rem;
+  /* 표준 draft 속성 */
+  line-clamp: 3;
+  box-orient: vertical;
+  /* 현재 실제로 동작하는 웹킷 속성 */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}

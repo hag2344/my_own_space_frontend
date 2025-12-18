@@ -1,0 +1,74 @@
+.scroll-top-btn {
+  position: fixed;
+
+  /* 기본(PC) 위치 */
+  right: 24px;
+  bottom: 24px;
+
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+
+  background: black;
+  color: #fff;
+
+  z-index: 2000; /* overlay(1150)보다 크게 */
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.18);
+
+  /* ✅ 등장 애니메이션용: 기본은 숨김 상태 */
+  opacity: 0;
+  transform: translateY(12px) scale(0.96);
+  pointer-events: none;
+
+  transition: opacity 180ms ease, transform 220ms ease,
+    background-color 150ms ease;
+}
+
+/* ✅ 보일 때: 살짝 올라오며 나타남 */
+.scroll-top-btn.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+/* hover 효과 */
+.scroll-top-btn:hover {
+  background: #777;
+  transform: translateY(-2px) scale(1.04);
+}
+
+/* ✅ 모바일 위치 자동 보정
+   - 오른쪽/아래 여백 조금 줄임
+   - “동적 뷰포트(주소창)” 이슈 대비로 bottom을 좀 여유 있게
+*/
+@media (max-width: 768px) {
+  .scroll-top-btn {
+    right: 16px;
+    bottom: 16px;
+    width: 42px;
+    height: 42px;
+    font-size: 18px;
+  }
+}
+
+/* ✅ iOS/모바일에서 하단 안전영역(홈 인디케이터) 보정 */
+@supports (padding: max(0px)) {
+  .scroll-top-btn {
+    bottom: calc(24px + env(safe-area-inset-bottom));
+  }
+  @media (max-width: 768px) {
+    .scroll-top-btn {
+      bottom: calc(16px + env(safe-area-inset-bottom));
+    }
+  }
+}
+
+/* ✅ 모션 최소화 설정 사용자는 애니메이션 최소 */
+@media (prefers-reduced-motion: reduce) {
+  .scroll-top-btn {
+    transition: none;
+  }
+}

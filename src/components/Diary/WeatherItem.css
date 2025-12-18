@@ -23,3 +23,9 @@
 .weather-item.weather-item-detail img {
   cursor: default;
 }
+
+@media (max-width: 768px) {
+  .weather-item .weather-img {
+    width: 27px;
+  }
+}

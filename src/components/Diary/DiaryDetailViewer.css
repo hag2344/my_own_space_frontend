@@ -69,3 +69,13 @@
   justify-content: space-around;
   margin-top: 4px;
 }
+
+@media (max-width: 768px) {
+  .diary-detail-viewer-wrapper {
+    font-size: 13px;
+  }
+
+  .diary-detail-viewer-wrapper .diary-detail-action button {
+    font-size: 11px;
+  }
+}

@@ -8,7 +8,7 @@ import {
   adjustDateRange,
 } from "../../utils/dateFormat";
 import Button from "../common/Button";
-import { mapFormToApi } from "../../utils/scheduleMapper";
+import { mapFormToApi } from "../../mappers/scheduleMapper";
 
 const ScheduleModal = ({ event = {}, onClose, onRefresh }) => {
   const [form, setForm] = useState({

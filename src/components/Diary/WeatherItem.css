@@ -1,0 +1,25 @@
+.weather-item {
+  display: inline-flex;
+  text-align: center;
+  justify-content: center;
+  border: 1px solid transparent;
+  box-sizing: border-box;
+}
+
+.weather-item .weather-img {
+  width: 37px;
+  cursor: pointer;
+}
+
+.weather-item:not(.weather-item-detail):hover {
+  border-color: black;
+}
+
+.weather-item.weather-item-selected {
+  border-color: black;
+}
+
+.weather-item.weather-item-detail,
+.weather-item.weather-item-detail img {
+  cursor: default;
+}

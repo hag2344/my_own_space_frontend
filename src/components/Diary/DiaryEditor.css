@@ -1,0 +1,59 @@
+.diary-editor-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #696969;
+  padding: 20px;
+  max-width: 800px;
+  min-width: 300px;
+  margin: 0 auto;
+  background-color: #faebd7;
+}
+.diary-editor-wrapper section {
+  width: 100%;
+  display: flex;
+}
+.diary-editor-wrapper fieldset {
+  width: 100%;
+  border: none;
+}
+
+.diary-editor-wrapper input,
+.diary-editor-wrapper textarea {
+  width: 100%;
+  padding: 7px;
+  margin-top: 4px;
+  box-sizing: border-box;
+}
+
+.diary-editor-wrapper textarea {
+  height: 70px;
+  resize: vertical;
+}
+
+.diary-editor-wrapper .diary-editor-content {
+  height: 110px;
+}
+
+.diary-editor-wrapper .diary-editor-action {
+  display: flex;
+  gap: 10px;
+  justify-content: end;
+}
+
+.diary-editor-wrapper .diary-editor-action button {
+  padding: 6px 14px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.diary-editor-wrapper .weather-list-wrapper {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 4px;
+}

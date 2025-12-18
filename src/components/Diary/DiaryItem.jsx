@@ -1,4 +1,4 @@
-import "./Diaryitem.css";
+import "./DiaryItem.css";
 import { getWeatherImage } from "../../utils/get-weather-image";
 
 const DiaryItem = ({ id, title, todayDate, weatherId, content, onClick }) => {

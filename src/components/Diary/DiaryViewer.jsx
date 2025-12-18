@@ -12,6 +12,7 @@ import { diaryApi } from "../../api/diaryApi";
 
 import usePagedList from "../../hooks/usePagedList";
 import useListQueryParams from "../../hooks/useListQueryParams";
+import useScrollToTopOnChange from "../../hooks/useScrollToTopOnChange";
 
 const PAGE_SIZE = 20;
 
@@ -28,6 +29,12 @@ const DiaryViewer = () => {
   useEffect(() => {
     setKeyword(urlKeyword);
   }, [urlKeyword]);
+
+  useScrollToTopOnChange({
+    containerId: "main-scroll",
+    behavior: "auto",
+    deps: [page, appliedKeyword], // 페이지/검색 바뀔 때만 탑으로
+  });
 
   /**
    *  usePagedList가 기대하는 형태로 변환해서 반환

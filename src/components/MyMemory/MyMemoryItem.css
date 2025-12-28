@@ -1,4 +1,4 @@
-.diary-item-card {
+.mymemory-item-card {
   border: 1px solid #ccc;
   border-radius: 10px;
   overflow: hidden;
@@ -7,24 +7,33 @@
   transition: transform 0.2s;
 }
 
-.diary-item-card:hover {
+.mymemory-item-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   cursor: pointer;
 }
 
-.diary-item-card img {
+.mymemory-item-thumb {
   width: 100%;
-  object-fit: cover;
-  background-color: #faebd7;
+  height: 178px;
+  overflow: hidden;
   border-bottom: 1px solid #ccc;
+  background-color: #faebd7;
 }
 
-.diary-item-card .diary-item-card-wrapper {
+.mymemory-item-card .mymemory-item-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.mymemory-item-card .mymemory-item-body {
   padding: 10px;
 }
 
-.diary-item-card-wrapper h3 {
+.mymemory-item-body h3 {
   font-size: 16px;
   margin: 5px 0;
   white-space: nowrap;
@@ -32,7 +41,7 @@
   text-overflow: ellipsis;
 }
 
-.diary-item-card-wrapper .diary-item-card-content {
+.mymemory-item-body .mymemory-item-summary {
   font-size: 14px;
   color: #777;
   height: 50px;

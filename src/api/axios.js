@@ -4,7 +4,7 @@ const api = axios.create({
   baseURL: "/api", // 자동 프록시 덕분에 로컬/배포 모두 동작
   withCredentials: true, // 쿠키 자동 전송 (JWT 쿠키 인증용)
   headers: { "Content-Type": "application/json" },
-  timeout: 7000,
+  timeout: 15000,
 });
 
 let isRefreshing = false;

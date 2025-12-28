@@ -23,7 +23,8 @@ body {
 }
 
 body {
-  font-family: "IsYun";
+  font-family: "IsYun", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+    "Noto Sans KR", "Malgun Gothic", "Segoe UI", sans-serif;
 }
 
 #root {

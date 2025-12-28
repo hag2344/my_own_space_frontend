@@ -1,5 +1,11 @@
+import MyMemoryViewer from "../../components/MyMemory/MyMemoryViewer";
+
 const MyMemory = () => {
-  return <div>MyMemory</div>;
+  return (
+    <div>
+      <MyMemoryViewer />
+    </div>
+  );
 };
 
 export default MyMemory;

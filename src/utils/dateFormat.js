@@ -61,7 +61,6 @@ export const adjustDateRange = (name, start, end, allDay) => {
 
   // 날짜가 같고 시간이 역전되면 (startTime > endTime) → endTime = startTime 또는 startTime = endTime 보정
   if (isAfter(start, end) && !allDay) {
-    console.log("실행?");
     if (name === "startDate") {
       const startDateObj = new Date(start);
       startDateObj.setHours(startDateObj.getHours() + 1);
@@ -108,4 +107,36 @@ export const formatKoreanTime = (timeStr) => {
     2,
     "0"
   )}분`;
+};
+
+export const formatKoreanDateTimeShort = (dateStr) => {
+  if (!dateStr) return "";
+
+  const d = new Date(dateStr);
+  if (Number.isNaN(d.getTime())) return "";
+
+  const pad = (n) => String(n).padStart(2, "0");
+
+  const year = d.getFullYear();
+  const month = pad(d.getMonth() + 1);
+  const day = pad(d.getDate());
+  const hour = pad(d.getHours());
+  const minute = pad(d.getMinutes());
+
+  return `${year}.${month}.${day}. ${hour}:${minute}`;
+};
+
+export const formatKoreanDateShort = (dateStr) => {
+  if (!dateStr) return "";
+
+  const d = new Date(dateStr);
+  if (Number.isNaN(d.getTime())) return "";
+
+  const pad = (n) => String(n).padStart(2, "0");
+
+  const year = d.getFullYear();
+  const month = pad(d.getMonth() + 1);
+  const day = pad(d.getDate());
+
+  return `${year}.${month}.${day}.`;
 };

@@ -29,7 +29,7 @@ const DiaryNew = () => {
         alert(res.data.message);
         return;
       }
-      navigate("/diary", { replace: true });
+      navigate(`/diary/${res.data.data.id}`, { replace: true });
     } catch (err) {
       console.error("일정 저장 실패:", err);
       alert("서버 오류로 저장 실패");

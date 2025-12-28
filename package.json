@@ -16,6 +16,8 @@
     "@fullcalendar/list": "^6.1.19",
     "@fullcalendar/react": "^6.1.19",
     "@fullcalendar/timegrid": "^6.1.19",
+    "@toast-ui/editor": "^3.2.2",
+    "@toast-ui/react-editor": "^3.2.3",
     "axios": "^1.13.2",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",

@@ -1,0 +1,8 @@
+.mymemory-item-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+  max-width: calc(5 * 180px + 4 * 20px);
+  margin: 0 auto;
+}

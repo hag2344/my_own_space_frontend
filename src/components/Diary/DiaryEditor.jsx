@@ -1,6 +1,6 @@
 import Button from "../common/Button";
 import "./DiaryEditor.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import WeatherItem from "./WeatherItem";
 import { weatherList } from "../../utils/constants";
@@ -21,6 +21,9 @@ const DiaryEditor = ({ initData, onSave }) => {
   });
 
   const navigate = useNavigate();
+
+  const [isSaving, setIsSaving] = useState(false);
+  const savingRef = useRef(false);
 
   // initData가 바뀔 때 값 다시 채우기
   useEffect(() => {
@@ -47,6 +50,19 @@ const DiaryEditor = ({ initData, onSave }) => {
       ...prev,
       [name]: value,
     }));
+  };
+
+  const handleSave = async () => {
+    if (savingRef.current) return;
+    savingRef.current = true;
+    setIsSaving(true);
+
+    try {
+      await onSave?.(form);
+    } finally {
+      savingRef.current = false;
+      setIsSaving(false);
+    }
   };
 
   return (
@@ -163,13 +179,15 @@ const DiaryEditor = ({ initData, onSave }) => {
       <section>
         <fieldset className="diary-editor-action">
           <Button
-            text={initData ? "수정" : "등록"}
+            text={isSaving ? "저장 중..." : initData ? "수정" : "등록"}
             type={"New"}
-            onClick={() => onSave(form)}
+            disabled={isSaving}
+            onClick={handleSave}
           />
           <Button
             text={"뒤로가기"}
             type={"Basic"}
+            disabled={isSaving}
             onClick={() => navigate(-1)}
           />
         </fieldset>

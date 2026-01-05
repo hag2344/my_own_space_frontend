@@ -131,6 +131,8 @@
   gap: 10px;
   justify-content: end;
   width: 100%;
+  border-top: 1px solid #ebecef;
+  padding-top: 15px;
 }
 
 .mymemory-detail-wrapper .mymemory-detail-action button {

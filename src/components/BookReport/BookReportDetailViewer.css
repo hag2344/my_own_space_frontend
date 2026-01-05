@@ -1,0 +1,160 @@
+.bookreport-detail-viewer-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #696969;
+  padding: 20px;
+  max-width: 800px;
+  min-width: 300px;
+  margin: 0 auto;
+  background-color: #faebd7;
+}
+
+.bookeport-detail-meta {
+  color: #777;
+  font-size: 13px;
+  display: flex;
+  gap: 15px;
+  border-bottom: 1px dashed rosybrown;
+}
+
+.bookreport-detail-header {
+  display: flex;
+  width: 100%;
+  gap: 16px;
+}
+
+/* ====== 표지 이미지 영역 ====== */
+.bookreport-detail-image {
+  position: relative;
+  flex: 0 0 40%; /* 왼쪽 40%, 오른쪽 60% 정도 */
+  height: 180px;
+  border: 2px solid #d2a679;
+  border-radius: 4px;
+  background-color: #f6e3c7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+}
+
+.bookreport-detail-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  display: block;
+}
+
+/* ====== 오른쪽 도서 정보 ====== */
+.bookreport-detail-bookinfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+}
+
+.bookreport-detail-field {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  border-bottom: 1px solid #696969;
+}
+
+.bookreport-detail-field label {
+  width: 60px; /* 라벨 고정 폭 → 인풋 정렬 */
+  font-size: 14px;
+  text-align: center;
+}
+
+.bookreport-detail-field span {
+  flex: 1; /* 남은 영역 전부 사용 → 세 개 동일한 너비 */
+  padding: 7px 8px;
+  box-sizing: border-box;
+  border-radius: 3px;
+  font-size: 14px;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+/* ====== 내용 입력 영역 ====== */
+.bookreport-detail-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.bookreport-detail-content fieldset {
+  width: 100%;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.bookreport-detail-content legend {
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.bookreport-detail-content p {
+  width: 100%;
+  padding: 7px;
+  margin-top: 4px;
+  box-sizing: border-box;
+  border-radius: 3px;
+  border: 1px solid #696969;
+  resize: none;
+  min-height: 110px;
+  font-size: 14px;
+  outline: 0 none;
+  overflow: auto;
+  letter-spacing: -0.4px;
+  line-height: 22px;
+  background-color: #fffaf0;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  margin-bottom: 0;
+}
+
+/* ====== 버튼 영역 ====== */
+.bookreport-detail-action {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  gap: 10px;
+}
+
+.bookreport-detail-action button {
+  padding: 6px 14px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .bookreport-detail-header {
+    flex-direction: column;
+  }
+
+  .bookreport-detail-image {
+    flex: none;
+    width: 100%;
+    height: 160px;
+  }
+
+  .bookreport-detail-content p {
+    min-height: 60px;
+  }
+
+  .bookreport-detail-action button {
+    font-size: 11px;
+  }
+}

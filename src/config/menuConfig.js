@@ -25,11 +25,11 @@ export const menuMetaData = {
     title: "독서 기록",
     subTitle: "reading records",
   },
-  mymovielist: {
-    path: "/mymovielist",
-    title: "나의 영화 목록",
-    subTitle: "my movie list",
-  },
+  // mymovielist: {
+  //   path: "/mymovielist",
+  //   title: "나의 영화 목록",
+  //   subTitle: "my movie list",
+  // },
 };
 
 function headerText(metaData) {
@@ -59,11 +59,11 @@ function headerText(metaData) {
       title: metaData.bookreport.title,
       subTitle: metaData.bookreport.subTitle,
     },
-    {
-      path: metaData.mymovielist.path,
-      title: metaData.mymovielist.title,
-      subTitle: metaData.mymovielist.subTitle,
-    },
+    // {
+    //   path: metaData.mymovielist.path,
+    //   title: metaData.mymovielist.title,
+    //   subTitle: metaData.mymovielist.subTitle,
+    // },
   ];
 
   return headerData;

@@ -34,6 +34,8 @@
   margin: 0;
   font-size: 18px;
   font-weight: 600;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 /* X 버튼 */
@@ -69,6 +71,8 @@
   font-size: 14px;
   color: #555;
   margin: 0;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 /* 버튼 영역 */

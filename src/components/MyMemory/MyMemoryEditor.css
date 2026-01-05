@@ -59,6 +59,8 @@
 @media (max-width: 768px) {
   .mymemory-editor-wrapper {
     font-size: 13px;
+    justify-content: flex-start; /* 가운데 말고 위쪽 배치 */
+    align-items: stretch;
   }
 
   .mymemory-editor-wrapper .mymemory-editor-action button {
@@ -67,5 +69,22 @@
 
   .mymemory-content-input .toastui-editor-contents {
     min-height: 500px;
+  }
+
+  .toastui-editor-popup {
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+
+    /* 화면 크기에 맞게 줄이기 */
+    max-width: calc(100vw - 32px);
+    width: calc(100vw - 32px);
+    max-height: calc(100vh - 32px);
+    box-sizing: border-box;
+
+    margin-left: 0 !important;
+    z-index: 3000; /* 에디터 위로 올라오게 */
+    overflow: auto; /* 팝업 전체가 스크롤 가능 */
   }
 }

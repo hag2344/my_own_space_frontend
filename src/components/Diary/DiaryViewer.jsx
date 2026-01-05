@@ -14,7 +14,7 @@ import usePagedList from "../../hooks/usePagedList";
 import useListQueryParams from "../../hooks/useListQueryParams";
 import useScrollToTopOnChange from "../../hooks/useScrollToTopOnChange";
 
-const PAGE_SIZE = 20;
+const PAGE_SIZE = 10;
 
 const DiaryViewer = () => {
   const navigate = useNavigate();

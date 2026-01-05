@@ -1,9 +1,11 @@
-import Button from "../components/common/Button";
-import Header from "../components/common/Header";
-import Aside from "../components/common/Aside";
+import HomeViewer from "../components/Home/HomeViewer";
 
 const Home = () => {
-  return <div>Home</div>;
+  return (
+    <div>
+      <HomeViewer />
+    </div>
+  );
 };
 
 export default Home;

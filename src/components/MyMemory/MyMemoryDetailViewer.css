@@ -15,6 +15,8 @@
 .mymemory-detail-header h2 {
   font-size: 26px;
   margin-bottom: 6px;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .mymemory-detail-meta {
@@ -39,6 +41,8 @@
 /* Paragraph */
 .mymemory-detail-html p {
   margin: 10px 0;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 /* Headings */

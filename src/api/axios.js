@@ -27,6 +27,11 @@ api.interceptors.response.use(
       return Promise.reject(error);
     }
 
+    // ProtectedRoute의 check는 화면에서 처리하므로 refresh 대상 제외
+    if (original?.url?.includes("/auth/check")) {
+      return Promise.reject(error);
+    }
+
     // Access Token 만료 케이스
     // 401/403만 처리
     if (status !== 401 && status !== 403) {
@@ -50,8 +55,8 @@ api.interceptors.response.use(
         })
         .catch((err) => {
           console.warn("Refresh Token도 만료됨");
-          alert("로그인 세션이 만료되었습니다. 다시 로그인해주세요.");
-          window.location.href = "/login";
+          // alert("로그인 세션이 만료되었습니다. 다시 로그인해주세요.");
+          // window.location.href = "/login";
           throw err;
         })
         .finally(() => {

@@ -21,17 +21,16 @@ const DiaryNew = () => {
       alert("내용을 입력해주세요.");
       return;
     }
-    const data = form;
 
     try {
-      const res = await diaryApi.create(data);
+      const res = await diaryApi.create(form);
       if (!res.data.success) {
         alert(res.data.message);
         return;
       }
       navigate(`/diary/${res.data.data.id}`, { replace: true });
     } catch (err) {
-      console.error("일정 저장 실패:", err);
+      console.error("일기 저장 실패:", err);
       alert("서버 오류로 저장 실패");
     }
   };

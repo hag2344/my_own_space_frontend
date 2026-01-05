@@ -27,6 +27,7 @@ const BookReportEditor = ({ initData, onSubmit }) => {
 
   const navigate = useNavigate();
   const fileInputRef = useRef(null);
+  const savingRef = useRef(false);
 
   useEffect(() => {
     if (!initData) return;
@@ -82,6 +83,7 @@ const BookReportEditor = ({ initData, onSubmit }) => {
   };
 
   const handleImageAreaClick = () => {
+    if (isSaving) return;
     fileInputRef.current?.click();
   };
 
@@ -98,6 +100,7 @@ const BookReportEditor = ({ initData, onSubmit }) => {
   };
 
   const handleDrop = (e) => {
+    if (isSaving) return;
     e.preventDefault();
     e.stopPropagation();
     setIsDragOver(false);
@@ -107,31 +110,35 @@ const BookReportEditor = ({ initData, onSubmit }) => {
   };
 
   const handleSubmit = async () => {
-    const trimmedBookName = form.bookName.trim();
-    if (!trimmedBookName) {
-      alert("도서명을 입력해 주세요.");
-      return;
-    }
-
-    const trimmedRealization = form.realization.trim();
-    if (!trimmedRealization) {
-      alert("느낀점을 입력해 주세요.");
-      return;
-    }
-
-    const payload = {
-      ...form,
-      imagePath: coverPath || "",
-    };
+    if (savingRef.current) return;
+    savingRef.current = true;
+    setIsSaving(true);
 
     try {
-      setIsSaving(true);
+      const trimmedBookName = form.bookName.trim();
+      if (!trimmedBookName) {
+        alert("도서명을 입력해 주세요.");
+        return;
+      }
+
+      const trimmedRealization = form.realization.trim();
+      if (!trimmedRealization) {
+        alert("느낀점을 입력해 주세요.");
+        return;
+      }
+
+      const payload = {
+        ...form,
+        imagePath: coverPath || "",
+      };
+
       await onSubmit?.(payload);
     } catch (err) {
       console.error("독서 기록 저장 실패:", err);
       alert(err.message || "독서 기록 저장에 실패했습니다.");
     } finally {
       setIsSaving(false);
+      savingRef.current = false;
     }
   };
 
@@ -256,8 +263,14 @@ const BookReportEditor = ({ initData, onSubmit }) => {
           text={isSaving ? "저장 중..." : initData ? "수정" : "등록"}
           type={"New"}
           onClick={handleSubmit}
+          disabled={isSaving}
         />
-        <Button text={"뒤로가기"} type={"Basic"} onClick={() => navigate(-1)} />
+        <Button
+          text={"뒤로가기"}
+          type={"Basic"}
+          onClick={() => navigate(-1)}
+          disabled={isSaving}
+        />
       </section>
     </div>
   );

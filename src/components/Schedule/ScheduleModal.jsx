@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { scheduleApi } from "../../api/scheduleApi";
 import "./ScheduleModal.css";
 import { colors } from "../../utils/colorList";
@@ -20,6 +20,9 @@ const ScheduleModal = ({ event = {}, onClose, onRefresh }) => {
     location: "",
     description: "",
   });
+
+  const [isSaving, setIsSaving] = useState(false);
+  const savingRef = useRef(false);
 
   // event가 바뀔 때 모달 값 다시 채우기
   useEffect(() => {
@@ -84,24 +87,28 @@ const ScheduleModal = ({ event = {}, onClose, onRefresh }) => {
 
   // 일정 저장 (생성 or 수정)
   const handleSave = async () => {
-    if (!form.title.trim()) {
-      alert("제목을 입력해주세요.");
-      return;
-    }
-
-    if (!form.startDate) {
-      alert("시작일을 입력해주세요.");
-      return;
-    }
-
-    if (!form.allDay && !form.endDate) {
-      alert("종료일을 입력해주세요.");
-      return;
-    }
-
-    const data = mapFormToApi({ ...form });
+    if (savingRef.current) return;
+    savingRef.current = true;
+    setIsSaving(true);
 
     try {
+      if (!form.title.trim()) {
+        alert("제목을 입력해주세요.");
+        return;
+      }
+
+      if (!form.startDate) {
+        alert("시작일을 입력해주세요.");
+        return;
+      }
+
+      if (!form.allDay && !form.endDate) {
+        alert("종료일을 입력해주세요.");
+        return;
+      }
+
+      const data = mapFormToApi({ ...form });
+
       if (event.id) {
         const res = await scheduleApi.update(event.id, data);
         if (!res.data.success) {
@@ -120,6 +127,9 @@ const ScheduleModal = ({ event = {}, onClose, onRefresh }) => {
     } catch (err) {
       console.error("일정 저장 실패:", err);
       alert("서버 오류로 저장 실패");
+    } finally {
+      savingRef.current = false;
+      setIsSaving(false);
     }
   };
 
@@ -194,9 +204,19 @@ const ScheduleModal = ({ event = {}, onClose, onRefresh }) => {
         />
 
         <div className="actions">
-          <Button text={"저장"} onClick={handleSave} type={"New"} />
+          <Button
+            text={isSaving ? "저장 중..." : "저장"}
+            onClick={handleSave}
+            type={"New"}
+            disabled={isSaving}
+          />
 
-          <Button text={"닫기"} onClick={onClose} type={"Basic"} />
+          <Button
+            text={"닫기"}
+            onClick={onClose}
+            type={"Basic"}
+            disabled={isSaving}
+          />
         </div>
       </div>
     </div>

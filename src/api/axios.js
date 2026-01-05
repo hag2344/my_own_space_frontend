@@ -28,21 +28,19 @@ api.interceptors.response.use(
     }
 
     // Access Token 만료 케이스
-    if (status === 401 || status === 403) {
-      original._retry = true;
+    // 401/403만 처리
+    if (status !== 401 && status !== 403) {
+      return Promise.reject(error);
+    }
 
-      // 이미 refresh 진행 중이면 기존 refreshPromise 기다리기
-      if (isRefreshing) {
-        try {
-          await refreshPromise;
-          // 원래 요청 재실행
-          return api({ ...original });
-        } catch (err) {
-          return Promise.reject(err);
-        }
-      }
+    original._retry = true;
 
-      // refresh 최초 실행
+    // 쓰기 요청은 자동 재시도 금지 (중복 생성 방지)
+    const method = (original.method || "get").toLowerCase();
+    const isWrite = ["post", "put", "patch", "delete"].includes(method);
+
+    // refresh는 한 번만 공유해서 수행
+    if (!isRefreshing) {
       isRefreshing = true;
       refreshPromise = api
         .get("/auth/refresh")
@@ -59,16 +57,25 @@ api.interceptors.response.use(
         .finally(() => {
           isRefreshing = false;
         });
-
-      try {
-        await refreshPromise;
-        return api({ ...original });
-      } catch (err) {
-        return Promise.reject(err);
-      }
     }
 
-    return Promise.reject(error);
+    //  refreshPromise가 혹시라도 없으면 그대로 실패 처리
+    if (!refreshPromise) return Promise.reject(error);
+
+    try {
+      await refreshPromise;
+
+      // refresh는 성공했지만, 쓰기 요청은 자동 재시도 안 함
+      if (isWrite) {
+        alert("세션이 갱신되었습니다. 다시 저장 버튼을 눌러주세요.");
+        return Promise.reject(error);
+      }
+
+      // 읽기 요청만 자동 재시도
+      return api({ ...original });
+    } catch (err) {
+      return Promise.reject(err);
+    }
   }
 );
 

@@ -58,6 +58,11 @@
   filter: brightness(0.96);
 }
 
+.login-notice {
+  margin-top: 8px;
+  color: #777;
+}
+
 /* === 반응형: 모바일(<=768px) === */
 @media (max-width: 768px) {
   .LoginScreen {

@@ -13,7 +13,7 @@ import usePagedList from "../../hooks/usePagedList";
 import useListQueryParams from "../../hooks/useListQueryParams";
 import useScrollToTopOnChange from "../../hooks/useScrollToTopOnChange";
 
-const PAGE_SIZE = 20;
+const PAGE_SIZE = 10;
 
 const MyMemoryViewer = () => {
   const navigate = useNavigate();
@@ -43,7 +43,7 @@ const MyMemoryViewer = () => {
       const res = await myMemoryApi.select(pageParam, size, appliedKeyword);
 
       // unwrapPageResponse: ApiResponse<PagingResponse<T>> 처리
-      return unwrapPageResponse(res, "추억 목록 조회에 실패했습니다.");
+      return unwrapPageResponse(res, "내 추억 조회에 실패했습니다.");
     },
     [appliedKeyword]
   );

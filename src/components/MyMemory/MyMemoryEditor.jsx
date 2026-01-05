@@ -17,6 +17,7 @@ const MyMemoryEditor = ({
   const [title, setTitle] = useState(initialTitle);
   const [isSaving, setIsSaving] = useState(false);
   const editorRef = useRef(null);
+  const savingRef = useRef(false);
 
   const navigate = useNavigate();
 
@@ -105,37 +106,41 @@ const MyMemoryEditor = ({
   };
 
   const handleSubmit = async () => {
-    const trimmedTitle = title.trim();
-    if (!trimmedTitle) {
-      alert("제목을 입력해 주세요.");
-      return;
-    }
-
-    const editorInstance = editorRef.current?.getInstance();
-    const html = editorInstance?.getHTML() || "";
-
-    if (!html || html === "<p><br></p>") {
-      alert("내용을 입력해 주세요.");
-      return;
-    }
-
-    // 실제 HTML에 남아있는 이미지들 기준으로 path 추출
-    const imagePaths = extractUsedImagePaths(html);
-
-    const payload = {
-      title: trimmedTitle,
-      contentHtml: html,
-      imagePaths,
-    };
+    if (savingRef.current) return;
+    savingRef.current = true;
+    setIsSaving(true);
 
     try {
-      setIsSaving(true);
+      const trimmedTitle = title.trim();
+      if (!trimmedTitle) {
+        alert("제목을 입력해 주세요.");
+        return;
+      }
+
+      const editorInstance = editorRef.current?.getInstance();
+      const html = editorInstance?.getHTML() || "";
+
+      if (!html || html === "<p><br></p>") {
+        alert("내용을 입력해 주세요.");
+        return;
+      }
+
+      // 실제 HTML에 남아있는 이미지들 기준으로 path 추출
+      const imagePaths = extractUsedImagePaths(html);
+
+      const payload = {
+        title: trimmedTitle,
+        contentHtml: html,
+        imagePaths,
+      };
+
       await onSubmit?.(payload);
     } catch (err) {
       console.error("추억 저장 실패:", err);
       alert(err.message || "추억 저장에 실패했습니다.");
     } finally {
       setIsSaving(false);
+      savingRef.current = false;
     }
   };
 
@@ -182,8 +187,14 @@ const MyMemoryEditor = ({
           text={isSaving ? "저장 중..." : initialTitle ? "수정" : "등록"}
           type={"New"}
           onClick={handleSubmit}
+          disabled={isSaving}
         />
-        <Button text={"뒤로가기"} type={"Basic"} onClick={() => navigate(-1)} />
+        <Button
+          text={"뒤로가기"}
+          type={"Basic"}
+          onClick={() => navigate(-1)}
+          disabled={isSaving}
+        />
       </div>
     </div>
   );

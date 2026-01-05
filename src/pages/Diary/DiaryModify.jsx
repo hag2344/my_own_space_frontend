@@ -37,17 +37,16 @@ const DiaryModify = () => {
       alert("내용을 입력해주세요.");
       return;
     }
-    const data = form;
 
     try {
-      const res = await diaryApi.update(id, data);
+      const res = await diaryApi.update(id, form);
       if (!res.data.success) {
         alert(res.data.message);
         return;
       }
       navigate(-1);
     } catch (err) {
-      console.error("일정 수정 실패:", err);
+      console.error("일기 수정 실패:", err);
       alert("서버 오류로 수정 실패");
     }
   };

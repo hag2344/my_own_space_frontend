@@ -1,5 +1,11 @@
+import BookReportViewer from "../../components/BookReport/BookReportViewer";
+
 const BookReport = () => {
-  return <div>BookReport</div>;
+  return (
+    <div>
+      <BookReportViewer />
+    </div>
+  );
 };
 
 export default BookReport;

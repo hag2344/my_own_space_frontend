@@ -42,7 +42,10 @@ const LoginScreen = () => {
           - 서버 <span className={`server_${serverState}`}>{serverState}</span>{" "}
           -
         </div>
-        <div>※ 로그인 실패 시 1분 후 다시시도 해주세요.</div>
+        <div>※ 로그인 실패 시 다시시도 해주세요.</div>
+        <p className="login-notice">
+          ℹ️ 무료 배포 환경 특성상 첫 접속 시 로딩이 지연될 수 있습니다.
+        </p>
       </div>
     </div>
   );

@@ -29,6 +29,7 @@
   list-style: none;
   margin: 0;
   padding: 0;
+  width: 100%;
 }
 
 .Aside .menu_list {
@@ -70,9 +71,12 @@
 }
 
 .Aside .aside_list .menu_profile > img {
-  width: 54%;
+  width: 94.5px;
+  height: 94.5px;
   border: none;
   border-radius: 50%;
+  object-fit: cover;
+  display: block;
 }
 
 .Aside .menu_logout {
